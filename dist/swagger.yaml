@@ -1,0 +1,165 @@
+swagger: "2.0"
+info:
+  description: "Simple node js + express API to do curd operations on mongo DB"
+  version: "1.0.0"
+  title: "Library API"
+  termsOfService: ""
+  contact:
+    email: "harsha.vardhan953@gmail.com"
+host: "localhost:4000"
+basePath: "/api"
+tags:
+- name: "Book"
+  description: "Everything about Books"
+schemes:
+- "http"
+paths:
+  /books:
+    post:
+      tags:
+      - "Book"
+      summary: "Add a new book to library"
+      description: "This will add new book to library"
+      operationId: "addBook"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Book object that needs to be added to the library"
+        required: true
+        schema:
+          $ref: "#/definitions/createBook"
+      responses:
+        201:
+          description: "Book created"
+    get:
+      tags:
+      - "Book"
+      summary: "get all books present in library"
+      description: "On execute get all books present in library"
+      operationId: "getBooks"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "response successful"
+  /books/{bookId}:
+    put:
+      tags:
+      - "Book"
+      summary: "Update an existing book(put)"
+      description: ""
+      operationId: "updateBook"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bookId"
+        in: "path"
+        description: "ID of book to return"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Book object that needs to be added to the library"
+        required: true
+        schema:
+          $ref: "#/definitions/createBook"
+      responses:
+        200:
+          description: "Successful operation"
+        404:
+          description: "Book not found"
+    patch:
+      tags:
+      - "Book"
+      summary: "Update an existing book(patch)"
+      description: ""
+      operationId: "update"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bookId"
+        in: "path"
+        description: "ID of book to return"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Book object that needs to be added to the library"
+        required: true
+        schema:
+          $ref: "#/definitions/updateBook"
+      responses:
+        200:
+          description: "Successful operation"
+        404:
+          description: "Book not found"
+    get:
+      tags:
+      - "Book"
+      summary: "Find book by ID"
+      description: "Returns a single book"
+      operationId: "getBookById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bookId"
+        in: "path"
+        description: "ID of book to return"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Book not found"
+    delete:
+      tags:
+      - "Book"
+      summary: "Deletes a book"
+      description: ""
+      operationId: "deleteBook"
+      produces:
+      - "text/plain"
+      parameters:
+      - name: "bookId"
+        in: "path"
+        description: "Book id to delete"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Removed book successfully"
+        404:
+          description: "Book not found"
+definitions:
+  createBook:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        example: "2 states"
+      author:
+        type: "string"
+        example: "JK Rowling"
+      genre:
+        type: "string"
+        example: "Drama"
+      read:
+        type: "boolean"
+        example: "false"
+  updateBook:
+    type: "object"
+    properties:
+      read:
+        type: "boolean"
+        example: "true"
