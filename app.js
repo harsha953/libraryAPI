@@ -1,8 +1,12 @@
 var express = require('express');
 var chalk = require('chalk');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2)); 
+var promise = require('bluebird');
+var mongoose = promise.promisifyAll(mongoose); //Promisification of mongoose module.
+mongoose.promise = promise;
+
 
 //mongoDB - connect
 var db = mongoose.connect('mongodb://localhost/bookAPI');

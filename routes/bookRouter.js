@@ -9,15 +9,15 @@ var routes = function(Book){
         .get(bookController.getBooks);
     
     bookRouter.use('/:bookId', function(req, res, next){ //(this is a middleware) client request ->middleware -> Route
-        Book.findById(req.params.bookId, function(err, book){
-            if(err)
-                res.status(500).send(err);
-            else if(book){
+        Book.findByIdAsync(req.params.bookId).then(function(book){
+            if(book){
                 req.book = book;
-                next();                
+                next();
             }else{
                 res.status(404).send('No Book found');
             }
+        }).catch(function(err){
+            res.status(500).send(err);
         });
     });
 
